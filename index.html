@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little Something For You</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background: #09090f;
+  color: #f5f3f7;
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* Background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(150,110,255,.18), transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(255,100,180,.12), transparent 30%),
+    #09090f;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: .25;
+  background-image:
+    radial-gradient(#fff 1px, transparent 1px);
+  background-size: 55px 55px;
+  animation: stars 20s linear infinite;
+}
+
+@keyframes stars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-55px); }
+}
+
+/* Opening */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.hero-box {
+  max-width: 650px;
+  animation: fadeUp 1.4s ease;
+}
+
+.small {
+  font-size: .85rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  opacity: .6;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(3rem, 12vw, 6rem);
+  line-height: 1.1;
+  margin-bottom: 25px;
+}
+
+.hero p {
+  color: #bbb7c4;
+  font-size: 1rem;
+  max-width: 500px;
+  margin: auto;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 35px;
+  padding: 14px 28px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50px;
+  color: white;
+  text-decoration: none;
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(10px);
+  transition: .3s;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,.12);
+}
+
+/* Main */
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px 100px;
+}
+
+.section {
+  margin-bottom: 120px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 1s ease;
+}
+
+.section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.number {
+  font-size: .75rem;
+  letter-spacing: 3px;
+  opacity: .5;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(2.2rem, 8vw, 4rem);
+  margin-bottom: 30px;
+}
+
+.card {
+  padding: 30px;
+  border-radius: 25px;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(15px);
+  margin-bottom: 18px;
+}
+
+.card p {
+  color: #d2ced8;
+  font-size: 1rem;
+}
+
+/* Memories */
+.memories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.memory {
+  min-height: 220px;
+  padding: 25px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background:
+    linear-gradient(to top, rgba(0,0,0,.75), transparent),
+    rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.memory h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+}
+
+.memory p {
+  color: #c8c4cd;
+  font-size: .9rem;
+}
+
+/* Photo placeholders */
+.photo {
+  height: 180px;
+  border-radius: 18px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed rgba(255,255,255,.2);
+  color: #85818d;
+  background: rgba(255,255,255,.03);
+}
+
+/* Final */
+.final {
+  text-align: center;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.final-box {
+  max-width: 700px;
+}
+
+.final h2 {
+  font-size: clamp(2.5rem, 9vw, 4.5rem);
+}
+
+.signature {
+  margin-top: 35px;
+  opacity: .6;
+  font-size: .9rem;
+}
+
+/* Music */
+.music {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 20;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(20,20,30,.8);
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+/* Animation */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile */
+@media(max-width: 650px) {
+  main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .memories {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 23px;
+  }
+
+  .section {
+    margin-bottom: 90px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Opening -->
+<section class="hero">
+  <div class="hero-box">
+    <div class="small">A little something</div>
+
+    <h1>For You</h1>
+
+    <p>
+      I had some things on my mind that I wanted to put into words.
+      So take a little time and read this slowly.
+    </p>
+
+    <a href="#start" class="button">Begin ↓</a>
+  </div>
+</section>
+
+
+<main id="start">
+
+<!-- 01 -->
+<section class="section">
+  <div class="number">01 — WHY YOU?</div>
+  <h2>Why you?</h2>
+
+  <div class="card">
+    <p>
+      I don’t know if I can give one perfect reason why you are so special to me.
+      Maybe it’s because with you, I can be completely myself. I don’t have to
+      pretend to be okay, strong, or perfect.
+      <br><br>
+
+      I love the way you understand the little things about me, the way you make
+      normal moments feel special, and simply the comfort I feel when I’m with you.
+      <br><br>
+
+      You’re special to me not because you’re perfect, but because you’re you.
+      And somehow, my heart feels safest and happiest with you.
+    </p>
+  </div>
+</section>
+
+
+<!-- 02 -->
+<section class="section">
+  <div class="number">02 — WHAT I FEEL</div>
+  <h2>What I feel</h2>
+
+  <div class="card">
+    <p>
+      Honestly, I don’t always know how to express what I feel for you.
+      I just know that you matter to me a lot. Your happiness affects me.
+      When you’re upset, I genuinely worry about you. When something good
+      happens to you, I feel happy too.
+      <br><br>
+
+      I don’t want to love you only through big words. I want it to show in
+      the small things—remembering what matters to you, listening when you
+      need someone, respecting your feelings, and being there when things
+      aren’t perfect.
+      <br><br>
+
+      I don’t know what the future will look like, but right now, I know one
+      thing for sure: I genuinely love having you in my life.
+    </p>
+  </div>
+</section>
+
+
+<!-- 03 -->
+<section class="section">
+  <div class="number">03 — OUR LITTLE MOMENTS</div>
+  <h2>Our little moments</h2>
+
+  <div class="memories">
+
+    <div class="memory">
+      <div class="photo">📷 Add your photo here</div>
+      <h3>Our first memory</h3>
+      <p>
+        Maybe it looked like a normal moment, but I still remember how it made me feel.
+      </p>
+    </div>
+
+    <div class="memory">
+      <div class="photo">📷 Add your photo here</div>
+      <h3>That one random moment</h3>
+      <p>
+        Nothing extraordinary happened. It was just us—and somehow, that was enough.
+      </p>
+    </div>
+
+    <div class="memory">
+      <div class="photo">📷 Add your photo here</div>
+      <h3>The moment I felt closer</h3>
+      <p>
+        Somewhere between all our conversations, you became someone I genuinely didn’t want to lose.
+      </p>
+    </div>
+
+    <div class="memory">
+      <div class="photo">📷 Add your photo here</div>
+      <h3>Our silly moments</h3>
+      <p>
+        We may be a little crazy sometimes, but these are the moments I’ll always smile about.
+      </p>
+    </div>
+
+    <div class="memory">
+      <div class="photo">📷 Add your photo here</div>
+      <h3>A moment I wish I could replay</h3>
+      <p>
+        Not because it was perfect, but because I was happy… with you.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- 04 -->
+<section class="section">
+  <div class="number">04 — ONE THING I WANT YOU TO KNOW</div>
+  <h2>One thing I want you to know…</h2>
+
+  <div class="card">
+    <p>
+      There’s one thing I really want you to know.
+      I may not always say it perfectly, and sometimes I may not even know
+      how to show it, but you mean a lot to me.
+      <br><br>
+
+      I don’t love you because everything between us is always perfect.
+      I love you because even when things get difficult, I still care.
+      I still want to understand you. I still want to fix things instead
+      of simply walking away.
+      <br><br>
+
+      I don’t expect you to be perfect for me, and I don’t want to be someone
+      you have to pretend around. I just want us to be honest with each other,
+      respect each other, support each other, and keep choosing each other
+      through the little things.
+      <br><br>
+
+      You have become an important part of my life, and I’m genuinely grateful
+      for every laugh, every conversation, every stupid little moment, and
+      every memory we’ve made.
+      <br><br>
+
+      I don’t know how to put the exact amount of love I have for you into words.
+      <br><br>
+
+      But if there’s one thing I hope you always remember, it’s this—
+      <br><br>
+
+      <strong>
+        you are deeply loved, genuinely valued, and incredibly special to me.
+      </strong>
+    </p>
+  </div>
+</section>
+
+
+<!-- Final -->
+<section class="final">
+  <div class="final-box">
+
+    <div class="number">THE END</div>
+
+    <h2>
+      Some feelings<br>
+      are bigger than words.
+    </h2>
+
+    <p>
+      Thank you for every laugh, every conversation,
+      every little moment and every memory.
+    </p>
+
+    <div class="signature">
+      Made with care ❤️
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+
+<!-- Music button -->
+<button class="music" id="musicBtn" onclick="toggleMusic()">♫</button>
+
+<!--
+  MUSIC:
+  Rename your audio file to music.mp3
+  and upload it in the same GitHub folder as index.html.
+-->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+/* Scroll animation */
+
+const sections = document.querySelectorAll(".section");
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+
+sections.forEach(section => observer.observe(section));
+
+
+/* Music */
+
+const music = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+function toggleMusic() {
+
+  if (music.paused) {
+    music.play()
+      .then(() => {
+        musicBtn.textContent = "❚❚";
+      })
+      .catch(() => {
+        alert("Please add music.mp3 to the same folder as index.html.");
+      });
+
+  } else {
+    music.pause();
+    musicBtn.textContent = "♫";
+  }
+}
+
+</script>
+
+</body>
+  </html>
